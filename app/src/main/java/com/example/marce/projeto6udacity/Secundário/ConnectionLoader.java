@@ -15,6 +15,7 @@ import java.util.List;
 public class ConnectionLoader extends AsyncTaskLoader<List<Noticias>> {
 
     String url;
+
     public ConnectionLoader(@NonNull Context context, String url) {
         super(context);
         this.url=url;
@@ -26,7 +27,7 @@ public class ConnectionLoader extends AsyncTaskLoader<List<Noticias>> {
 
         List<Noticias> noticiasList = new ArrayList<>();
         try {
-            Connection connection = new Connection();
+            Connection connection = new Connection(getContext());
             noticiasList = connection.connectionServer(new URL(url));
 
         } catch (IOException e) {

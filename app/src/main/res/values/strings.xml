@@ -3,4 +3,18 @@
     <string name="titulo">Noticiário</string>
     <string name="conexao_falhou">Parece que você não está conectado a internet :(</string>
     <string name="tentar_novamente">Tentar de novo</string>
+
+
+    <!-- Parsing Json-->
+
+    <string name="urlServer">http://content.guardianapis.com/search?q=debates&amp;api-key=test</string>
+    <string name="webTitle">webTitle</string>
+    <string name="sectionName">sectionName</string>
+    <string name="webPublicationDate">webPublicationDate</string>
+    <string name="webUrl">webUrl</string>
+
+    <!--Mensagens-->
+    <string name="bem_vindo">"Seja bem vindo"</string>
+    <string name="aguardar">Aguarde, conectando!</string>
+    <string name="sem_conexao">"Estamos sem conexão!</string>
 </resources>

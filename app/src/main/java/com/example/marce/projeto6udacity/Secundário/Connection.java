@@ -1,6 +1,10 @@
 package com.example.marce.projeto6udacity.Secundário;
 
+import android.content.Context;
+import android.content.res.Resources;
+
 import com.example.marce.projeto6udacity.Entidades.Noticias;
+import com.example.marce.projeto6udacity.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,9 +22,14 @@ import java.util.List;
 
 public class Connection {
 
-    HttpURLConnection urlConnection;
-    InputStream inputStream;
+    HttpURLConnection urlConnection=null;
+    InputStream inputStream=null;
     String jsonResponse="";
+    Context context;
+
+    public Connection(Context context){
+        this.context=context;
+    }
 
 
     public List<Noticias> connectionServer(URL url) throws IOException {
@@ -44,9 +53,11 @@ public class Connection {
                return parserJsonResult(jsonResponse);
             }
         }catch(IOException e){
-            throw new RuntimeException("Problemas ao conectar com "+url+"\n Mensagem: "+e);
+            e.printStackTrace();
+            return new ArrayList<>();
         } catch (JSONException e) {
             e.printStackTrace();
+            return new ArrayList<>();
         } finally {
             if(urlConnection!=null){
                 urlConnection.disconnect();
@@ -74,10 +85,10 @@ public class Connection {
 
                 JSONObject itemResponse = jsonArrayResults.getJSONObject(i);
 
-                String tituloNoticia = itemResponse.getString("webTitle");
-                String nomeSessaoNoticia = itemResponse.getString("sectionName");
-                String dataNoticia = itemResponse.getString("webPublicationDate");
-                String webURL = itemResponse.getString("webUrl");
+                String tituloNoticia = itemResponse.getString(context.getResources().getString(R.string.webTitle));
+                String nomeSessaoNoticia = itemResponse.getString(context.getResources().getString(R.string.sectionName));
+                String dataNoticia = itemResponse.getString(context.getResources().getString(R.string.webPublicationDate));
+                String webURL = itemResponse.getString(context.getResources().getString(R.string.webUrl));
 
                 listaNoticias.add(new Noticias(tituloNoticia,nomeSessaoNoticia,dataNoticia,webURL));
             }

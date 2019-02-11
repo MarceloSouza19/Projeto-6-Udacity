@@ -14,8 +14,6 @@ import android.widget.TextView;
 import com.example.marce.projeto6udacity.Entidades.Noticias;
 import com.example.marce.projeto6udacity.R;
 
-import java.net.URL;
-import java.util.Date;
 import java.util.List;
 
 public class AdaptadorRecyclerTelaInicial extends RecyclerView.Adapter<AdaptadorRecyclerTelaInicial.ViewHolder> {
