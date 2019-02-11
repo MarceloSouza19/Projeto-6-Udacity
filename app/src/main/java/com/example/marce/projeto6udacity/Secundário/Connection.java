@@ -114,6 +114,4 @@ public class Connection {
         }
         return output.toString();
     }
-
-
 }
