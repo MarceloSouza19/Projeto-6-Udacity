@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="informacoes_categoria"
+        android:title="Informações">
+
+    <EditTextPreference
+        android:key="nome_usuario_item"
+        android:title="Nome"
+        android:dialogMessage="Coloque o seu nome:"
+        android:summary="Marcelo Top"/>
+
+    <ListPreference
+        android:key="sessao_item"
+        android:title="Prioridade De busca"
+        android:summary="Selecione a sessão de busca"
+        android:entryValues="@array/itens_sessao_values"
+        android:entries="@array/itens_sessao"/>
+    </PreferenceCategory>
+</PreferenceScreen>

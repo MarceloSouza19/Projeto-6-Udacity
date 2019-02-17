@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="itens_sessao">
+        <item>Padrão</item>
+        <item>Governo Nacional</item>
+        <item>Novidades</item>
+    </string-array>
+
+    <string-array name="itens_sessao_values">
+        <item></item>
+        <item>tag=politics/politics&amp;</item>
+        <item>tag=news/news&amp;</item>
+    </string-array>
+
+</resources>

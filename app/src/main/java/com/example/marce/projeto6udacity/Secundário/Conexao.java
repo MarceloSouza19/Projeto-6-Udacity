@@ -20,14 +20,14 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Connection {
+public class Conexao {
 
     HttpURLConnection urlConnection=null;
     InputStream inputStream=null;
     String jsonResponse="";
     Context context;
 
-    public Connection(Context context){
+    public Conexao(Context context){
         this.context=context;
     }
 
