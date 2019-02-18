@@ -52,7 +52,7 @@ public class AtividadePrincipalNoticias extends AppCompatActivity implements Loa
                     public void run() {
                         swipeRefreshLayout.setRefreshing(false);
                     }
-                },3000);
+                }, 3000);
             }
         });
     }
@@ -63,14 +63,23 @@ public class AtividadePrincipalNoticias extends AppCompatActivity implements Loa
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String complemento = sharedPrefs.getString(getApplicationContext().getString(R.string.sessao_item),"");
+        String complemento = sharedPrefs.getString(getApplicationContext().getString(R.string.sessao_item), "");
 
-        if(complemento.length()>0){
-            return new LoaderConexao(getApplicationContext(), getApplicationContext().getString(R.string.urlServidor)+complemento+getApplicationContext().getString(R.string.urlFinal));
-        }else {
-            return new LoaderConexao(getApplicationContext(), getApplicationContext().getString(R.string.urlServidor)+getApplicationContext().getString(R.string.urlFinal));
+        if (complemento.length() > 0) {
+            return new LoaderConexao(getApplicationContext(), getApplicationContext().getString(R.string.urlServidor) + complemento + getApplicationContext().getString(R.string.urlFinal));
+        } else {
+            return new LoaderConexao(getApplicationContext(), getApplicationContext().getString(R.string.urlServidor) + getApplicationContext().getString(R.string.urlFinal));
         }
     }
+
+    @Override
+    protected void onResume() {
+
+         getSupportLoaderManager().restartLoader(0, null, AtividadePrincipalNoticias.this).forceLoad();
+
+        super.onResume();
+    }
+
 
     @Override
     public void onLoadFinished(@NonNull Loader<List<Noticias>> loader, List<Noticias> noticiasList) {
@@ -106,11 +115,11 @@ public class AtividadePrincipalNoticias extends AppCompatActivity implements Loa
             btnTentarNovamente.setVisibility(View.VISIBLE);
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-            String nomeUsuario = sharedPrefs.getString(getString(R.string.nome_usuario_item),"");
+            String nomeUsuario = sharedPrefs.getString(getString(R.string.nome_usuario_item), "");
 
-            if(nomeUsuario.length()>0) {
+            if (nomeUsuario.length() > 0) {
                 Toast.makeText(AtividadePrincipalNoticias.this, nomeUsuario + ", " + getApplicationContext().getString(R.string.conexao_falhou_usuario), Toast.LENGTH_SHORT).show();
-            } else{
+            } else {
                 Toast.makeText(AtividadePrincipalNoticias.this, getApplicationContext().getString(R.string.conexao_falhou), Toast.LENGTH_SHORT).show();
             }
 
@@ -143,10 +152,10 @@ public class AtividadePrincipalNoticias extends AppCompatActivity implements Loa
 
         switch (item.getItemId()) {
             case R.id.item_configuracao:
-                Intent intent = new Intent(getApplicationContext(),AtividadeConfiguracoes.class);
+                Intent intent = new Intent(getApplicationContext(), AtividadeConfiguracoes.class);
                 startActivity(intent);
 
-                Toast.makeText(getApplicationContext(),getApplicationContext().getString(R.string.carregandoConfigs),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getApplicationContext().getString(R.string.carregandoConfigs), Toast.LENGTH_SHORT).show();
                 return true;
         }
         return super.onOptionsItemSelected(item);

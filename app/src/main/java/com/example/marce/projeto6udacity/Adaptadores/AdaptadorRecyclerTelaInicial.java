@@ -22,16 +22,16 @@ public class AdaptadorRecyclerTelaInicial extends RecyclerView.Adapter<Adaptador
     Context context;
     List<Noticias> noticiasList;
 
-    public AdaptadorRecyclerTelaInicial(Context context,List<Noticias> noticiasList) {
-        this.context=context;
-        this.noticiasList=noticiasList;
+    public AdaptadorRecyclerTelaInicial(Context context, List<Noticias> noticiasList) {
+        this.context = context;
+        this.noticiasList = noticiasList;
     }
 
     @NonNull
     @Override
     public AdaptadorRecyclerTelaInicial.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_noticias,
-                    viewGroup,false);
+                viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -41,15 +41,16 @@ public class AdaptadorRecyclerTelaInicial extends RecyclerView.Adapter<Adaptador
 
         final Noticias noticias = noticiasList.get(i);
 
-        viewHolder.tituloNoticia.setText(noticias.getTituloNoticia());
-        viewHolder.sessaoNoticia.setText(noticias.getNomeSessaoNoticia());
-        viewHolder.dataNoticia.setText(noticias.getDataNoticia());
+        viewHolder.tituloNoticia.setText(noticias.getmTituloNoticia());
+        viewHolder.sessaoNoticia.setText(noticias.getmNomeSessaoNoticia());
+        viewHolder.dataNoticia.setText(noticias.getmDataNoticia());
+        viewHolder.autorNome.setText(noticias.getmNomeAutorNoticia());
 
         viewHolder.linearSelecao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse(noticias.getWebURL()));
+                intent.setData(Uri.parse(noticias.getmWebURL()));
 
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
@@ -63,20 +64,22 @@ public class AdaptadorRecyclerTelaInicial extends RecyclerView.Adapter<Adaptador
         return noticiasList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tituloNoticia;
         TextView dataNoticia;
         TextView sessaoNoticia;
         LinearLayout linearSelecao;
+        TextView autorNome;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tituloNoticia = itemView.findViewById(R.id.tituloNoticia);
-            dataNoticia   = itemView.findViewById(R.id.dataNoticia);
+            dataNoticia = itemView.findViewById(R.id.dataNoticia);
             sessaoNoticia = itemView.findViewById(R.id.sessaoNoticia);
             linearSelecao = itemView.findViewById(R.id.linearSelecao);
+            autorNome = itemView.findViewById(R.id.autorNome);
         }
     }
 }

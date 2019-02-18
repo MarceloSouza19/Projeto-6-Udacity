@@ -11,7 +11,7 @@
     <!-- Parsing Json-->
 
     <string name="urlServidor">https://content.guardianapis.com/search?q=debate&amp;</string>
-    <string name="urlFinal">api-key=test</string>
+    <string name="urlFinal">api-key=test&amp;show-tags=contributor</string>
     <string name="webTitle">webTitle</string>
     <string name="sectionName">sectionName</string>
     <string name="webPublicationDate">webPublicationDate</string>

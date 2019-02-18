@@ -22,47 +22,51 @@ import java.util.List;
 
 public class Conexao {
 
-    HttpURLConnection urlConnection=null;
-    InputStream inputStream=null;
-    String jsonResponse="";
+    HttpURLConnection urlConnection = null;
+    InputStream inputStream = null;
+    String jsonResponse = "";
     Context context;
+    private static final int READ_TIMEOUT = 10000;
+    private static final int CONN_TIMEOUT = 15000;
+    private static final int FIRST_POSITION=0;
+    private static final int OK_RESPONSE_CODE=200;
 
-    public Conexao(Context context){
-        this.context=context;
+    public Conexao(Context context) {
+        this.context = context;
     }
 
 
     public List<Noticias> connectionServer(URL url) throws IOException {
 
-        try{
+        try {
 
-            if(url==null){
+            if (url == null) {
                 return new ArrayList<>();
             }
             urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.setRequestMethod("GET");
-            urlConnection.setReadTimeout(10000);
-            urlConnection.setConnectTimeout(15000);
+            urlConnection.setReadTimeout(READ_TIMEOUT);
+            urlConnection.setConnectTimeout(CONN_TIMEOUT);
             urlConnection.connect();
 
-            if(urlConnection.getResponseCode()==200){
-                inputStream=urlConnection.getInputStream();
+            if (urlConnection.getResponseCode() == OK_RESPONSE_CODE) {
+                inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
 
-               return parserJsonResult(jsonResponse);
+                return parserJsonResult(jsonResponse);
             }
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return new ArrayList<>();
         } catch (JSONException e) {
             e.printStackTrace();
             return new ArrayList<>();
         } finally {
-            if(urlConnection!=null){
+            if (urlConnection != null) {
                 urlConnection.disconnect();
             }
-            if(inputStream!=null){
+            if (inputStream != null) {
                 inputStream.close();
             }
         }
@@ -79,9 +83,9 @@ public class Conexao {
 
         JSONArray jsonArrayResults = jsonObjectResponse.getJSONArray("results");
 
-        if(jsonArrayResults.length()>0){
+        if (jsonArrayResults.length() > 0) {
 
-            for(int i=0;i<jsonArrayResults.length();i++){
+            for (int i = 0; i < jsonArrayResults.length(); i++) {
 
                 JSONObject itemResponse = jsonArrayResults.getJSONObject(i);
 
@@ -89,8 +93,15 @@ public class Conexao {
                 String nomeSessaoNoticia = itemResponse.getString(context.getResources().getString(R.string.sectionName));
                 String dataNoticia = itemResponse.getString(context.getResources().getString(R.string.webPublicationDate));
                 String webURL = itemResponse.getString(context.getResources().getString(R.string.webUrl));
+                JSONArray tagAutor = itemResponse.getJSONArray("tags");
+                String nomeAutor ="";
 
-                listaNoticias.add(new Noticias(tituloNoticia,nomeSessaoNoticia,dataNoticia,webURL));
+                if(tagAutor.length()>0){
+                    JSONObject dadosAutor = tagAutor.getJSONObject(FIRST_POSITION);
+                    nomeAutor = dadosAutor.getString(context.getResources().getString(R.string.webTitle));
+                }
+
+                listaNoticias.add(new Noticias(tituloNoticia, nomeSessaoNoticia, dataNoticia, webURL, nomeAutor));
             }
         }
 
@@ -98,16 +109,16 @@ public class Conexao {
         return listaNoticias;
     }
 
-    public static String readFromStream(InputStream inputStream) throws IOException{
+    public static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
 
-        if(inputStream!=null){
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream,Charset.forName("UTF-8"));
+        if (inputStream != null) {
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
             BufferedReader reader = new BufferedReader(inputStreamReader);
 
             String line = reader.readLine();
 
-            while(line !=null){
+            while (line != null) {
                 output.append(line);
                 line = reader.readLine();
             }

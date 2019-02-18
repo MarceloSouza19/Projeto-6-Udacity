@@ -2,32 +2,40 @@ package com.example.marce.projeto6udacity.Entidades;
 
 public class Noticias {
 
-    String tituloNoticia;
-    String nomeSessaoNoticia;
-    String dataNoticia;
-    String webURL;
+    String mtituloNoticia;
+    String mnomeSessaoNoticia;
+    String mdataNoticia;
+    String mwebURL;
+    String mNomeAutorNoticia;
 
-    public Noticias(String tituloNoticia, String nomeSessaoNoticia, String dataNoticia, String webURL) {
-        this.tituloNoticia = tituloNoticia;
-        this.nomeSessaoNoticia = nomeSessaoNoticia;
-        this.dataNoticia = dataNoticia;
-        this.webURL = webURL;
+
+
+    public Noticias(String tituloNoticia, String nomeSessaoNoticia, String dataNoticia, String webURL, String nomeAutorNoticia) {
+        this.mtituloNoticia = tituloNoticia;
+        this.mnomeSessaoNoticia = nomeSessaoNoticia;
+        this.mdataNoticia = dataNoticia;
+        this.mwebURL = webURL;
+        this.mNomeAutorNoticia=nomeAutorNoticia;
     }
 
-    public String getWebURL() {
-        return webURL;
+    public String getmNomeAutorNoticia() {
+        return mNomeAutorNoticia;
     }
 
-    public String getTituloNoticia() {
-
-        return tituloNoticia;
+    public String getmWebURL() {
+        return mwebURL;
     }
 
-    public String getNomeSessaoNoticia() {
-        return nomeSessaoNoticia;
+    public String getmTituloNoticia() {
+
+        return mtituloNoticia;
     }
 
-    public String getDataNoticia() {
-        return dataNoticia;
+    public String getmNomeSessaoNoticia() {
+        return mnomeSessaoNoticia;
+    }
+
+    public String getmDataNoticia() {
+        return mdataNoticia;
     }
 }

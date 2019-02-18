@@ -1,5 +1,6 @@
 package com.example.marce.projeto6udacity.Secundário;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
