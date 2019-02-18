@@ -45,13 +45,15 @@
                 android:layout_marginTop="10dp"
                 android:text="Sessão"
                 android:textSize="12dp"
+
+                android:textAlignment="center"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/auto"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="2"
+                android:layout_weight="1.5"
                 android:text="Ver no Navegador"
                 android:gravity="center"
                 android:textSize="12dp"
@@ -61,11 +63,11 @@
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="1"
+                android:layout_weight="1.1"
                 android:lines="1"
-                android:text="Data"
-                android:gravity="end"
-                android:paddingRight="10dp"
+                android:text="2018-09-12"
+                android:gravity="center"
+                android:layout_marginRight="10dp"
                 android:textSize="12dp"
                 android:textStyle="bold" />
         </LinearLayout>

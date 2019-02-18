@@ -17,7 +17,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Conexao {
@@ -28,8 +33,8 @@ public class Conexao {
     Context context;
     private static final int READ_TIMEOUT = 10000;
     private static final int CONN_TIMEOUT = 15000;
-    private static final int FIRST_POSITION=0;
-    private static final int OK_RESPONSE_CODE=200;
+    private static final int FIRST_POSITION = 0;
+    private static final int OK_RESPONSE_CODE = 200;
 
     public Conexao(Context context) {
         this.context = context;
@@ -83,6 +88,9 @@ public class Conexao {
 
         JSONArray jsonArrayResults = jsonObjectResponse.getJSONArray("results");
 
+        SimpleDateFormat input = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        SimpleDateFormat output = new SimpleDateFormat("dd/MM/yyyy");
+
         if (jsonArrayResults.length() > 0) {
 
             for (int i = 0; i < jsonArrayResults.length(); i++) {
@@ -91,17 +99,24 @@ public class Conexao {
 
                 String tituloNoticia = itemResponse.getString(context.getResources().getString(R.string.webTitle));
                 String nomeSessaoNoticia = itemResponse.getString(context.getResources().getString(R.string.sectionName));
-                String dataNoticia = itemResponse.getString(context.getResources().getString(R.string.webPublicationDate));
+                String dataFormatada = itemResponse.getString(context.getResources().getString(R.string.webPublicationDate));
                 String webURL = itemResponse.getString(context.getResources().getString(R.string.webUrl));
                 JSONArray tagAutor = itemResponse.getJSONArray("tags");
-                String nomeAutor ="";
+                String nomeAutor = "";
 
-                if(tagAutor.length()>0){
+                try {
+                    Date data = input.parse(dataFormatada);
+                    dataFormatada = output.format(data);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+
+                if (tagAutor.length() > 0) {
                     JSONObject dadosAutor = tagAutor.getJSONObject(FIRST_POSITION);
                     nomeAutor = dadosAutor.getString(context.getResources().getString(R.string.webTitle));
                 }
 
-                listaNoticias.add(new Noticias(tituloNoticia, nomeSessaoNoticia, dataNoticia, webURL, nomeAutor));
+                listaNoticias.add(new Noticias(tituloNoticia, nomeSessaoNoticia, dataFormatada, webURL, nomeAutor));
             }
         }
 

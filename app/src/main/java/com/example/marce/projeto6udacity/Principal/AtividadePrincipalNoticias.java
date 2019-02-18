@@ -75,7 +75,7 @@ public class AtividadePrincipalNoticias extends AppCompatActivity implements Loa
     @Override
     protected void onResume() {
 
-         getSupportLoaderManager().restartLoader(0, null, AtividadePrincipalNoticias.this).forceLoad();
+        getSupportLoaderManager().restartLoader(0, null, AtividadePrincipalNoticias.this).forceLoad();
 
         super.onResume();
     }
@@ -115,13 +115,8 @@ public class AtividadePrincipalNoticias extends AppCompatActivity implements Loa
             btnTentarNovamente.setVisibility(View.VISIBLE);
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-            String nomeUsuario = sharedPrefs.getString(getString(R.string.nome_usuario_item), "");
 
-            if (nomeUsuario.length() > 0) {
-                Toast.makeText(AtividadePrincipalNoticias.this, nomeUsuario + ", " + getApplicationContext().getString(R.string.conexao_falhou_usuario), Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(AtividadePrincipalNoticias.this, getApplicationContext().getString(R.string.conexao_falhou), Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(AtividadePrincipalNoticias.this, getApplicationContext().getString(R.string.conexao_falhou), Toast.LENGTH_SHORT).show();
 
             btnTentarNovamente.setOnClickListener(new View.OnClickListener() {
                 @Override

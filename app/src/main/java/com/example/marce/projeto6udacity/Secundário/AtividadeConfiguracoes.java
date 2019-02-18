@@ -34,7 +34,6 @@ public class AtividadeConfiguracoes extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.configuracoes_fragmento);
 
-            bindSummaryValue(findPreference(getString(R.string.nome_usuario_item)));
             bindSummaryValue(findPreference(getString(R.string.sessao_item)));
 
         }
@@ -62,8 +61,6 @@ public class AtividadeConfiguracoes extends AppCompatActivity {
                int index = listaValores.findIndexOfValue(valorASetar);
 
                preference.setSummary(index >= 0 ? listaValores.getEntries()[index] : null);
-           } else if(preference instanceof EditTextPreference){
-               preference.setSummary(valorASetar);
            }
             return true;
         }
